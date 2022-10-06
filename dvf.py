@@ -54,6 +54,7 @@ import numpy as np
 # os.environ['KERAS_BACKEND'] = 'theano'
 import keras
 from keras.models import load_model
+import tensorflow as tf
 
 
 #### Step 0: function for encoding sequences into matrices of size 4 by n ####
@@ -88,7 +89,11 @@ def nt2index(nucleotide: str):
 if __name__ == "__main__":
     if core_num > 1:
         pool = multiprocessing.Pool(core_num)
-
+    tf.config.threading.set_inter_op_parallelism_threads(core_num)
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+    for gpu in gpus:
+        tf.config.experimental.set_memory_growth(gpu, True)
+        tf.compat.v1.disable_eager_execution()
 
 
     def seq2intseq(seq, contig_length=None):
