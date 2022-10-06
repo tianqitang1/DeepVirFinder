@@ -118,15 +118,17 @@ if __name__ == "__main__":
 
 
     def int2onehot(array):
-        n = np.max(array) + 1
-        return np.eye(int(n))[array.astype(int)]
+        n = 5
+        output = np.eye(int(n))[array.astype(int)]
+        output[output[:, 4] == 1, :] = 0.25
+        return output
 
 
     def seq2onehot(seq, contig_length=None):
         assert isinstance(seq, str), "Input should be str"
         int_seq = seq2intseq(seq, contig_length)
         onehot = int2onehot(int_seq)
-        return onehot
+        return onehot[:, :4]
     
     
     complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A', 'N': 'N'}

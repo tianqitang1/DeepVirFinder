@@ -38,7 +38,7 @@ or create a virtual environment
     source activate dvf -->
 
 ```bash
-conda create --name dvf numpy scikit-learn biopython h5py python
+conda create --name dvf numpy scikit-learn biopython h5py python tqdm
 pip install tensorflow-gpu
 ```
 
